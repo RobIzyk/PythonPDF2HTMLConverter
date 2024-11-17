@@ -1,0 +1,24 @@
+import fitz  # PyMuPDF
+
+def pdf_to_html (pdf_path, output_html):
+    # Open the PDF file
+    doc = fitz.open(pdf_path)
+
+    # Initialize an empty string to hold the HTML content
+    html_output = ""
+
+    # Loop through each page and extract text as HTML
+    for page_num in range(doc.page_count):
+        page = doc.load_page(page_num)  # Load the page
+        html_output += page.get_text("html")  # Extract text as HTML
+
+    # Save the output HTML to a file
+    with open(output_html, 'w', encoding='utf-8') as f:
+        f.write(html_output)
+
+    print(f"PDF successfully converted to HTML at: {output_html}")
+
+# Insert PDF Path Below and Replace "output.html with "Whatever_your_file_name_is.html"
+pdf_path = r"C:\Users\User\filename.pdf"  # Change to your PDF file path
+output_html = "Whatever_your_file_name_is.html"  # The output HTML file path
+pdf_to_html(pdf_path, output_html)
